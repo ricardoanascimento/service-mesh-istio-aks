@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: voting-service-virtualservice
+spec:
+  hosts:
+    - "*"
+  http:
+    - match:
+        - uri:
+            exact: "/"
+        - method:
+            exact: GET
+      route:
+        - destination:
+            host: voting-service
+      retries:
+        attempts: 3
+        perTryTimeout: 2s
+        retryOn: 5xx

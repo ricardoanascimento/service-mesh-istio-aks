@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: voting-service
+spec:
+  host: voting-service
+  trafficPolicy:
+    connectionPool:
+      http:
+        http1MaxPendingRequests: 1
+        maxRequestsPerConnection: 1
+    outlierDetection:
+      consecutiveGatewayErrors: 2
+      interval: 5s
+      baseEjectionTime: 1m
+      maxEjectionPercent: 50

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voting-service
+  template:
+    metadata:
+      labels:
+        app: voting-service
+        version: v1
+    spec:
+      containers:
+        - name: voting-service
+          image: crservicemeshpoc.azurecr.io/voting-service:v4
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
